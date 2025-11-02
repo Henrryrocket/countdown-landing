@@ -21,21 +21,77 @@ function getRemainingFridays(){
   return fridays
 }
 
+// function getTimeLeft() {
+//   const now = new Date()
+//   const endOfYear = new Date(now.getFullYear(), 11, 31, 23, 59, 59)
+
+//   const diffMs = endOfYear - now
+//   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+//   const diffWeeks = Math.floor(diffDays / 7)
+//   const diffMonths = Math.floor(diffDays / 30)
+//   const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+
+//   monthsEl.textContent = diffMonths
+//   weeksEl.textContent = diffWeeks
+//   daysEl.textContent = diffDays
+//   hoursEl.textContent = diffHours
+// }
 function getTimeLeft() {
   const now = new Date()
-  const endOfYear = new Date(now.getFullYear(), 11, 31, 23, 59, 59)
+  const end = new Date(now.getFullYear(), 11, 31, 23, 59, 59)
 
-  const diffMs = endOfYear - now
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-  const diffWeeks = Math.floor(diffDays / 7)
-  const diffMonths = Math.floor(diffDays / 30)
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+  // 1) Diferencia total en ms
+  const diffMs = end - now
+  const MS_PER_HOUR = 1000 * 60 * 60         // 3_600_000
+  const MS_PER_DAY = MS_PER_HOUR * 24       // 86_400_000
 
-  monthsEl.textContent = diffMonths
-  weeksEl.textContent = diffWeeks
-  daysEl.textContent = diffDays
-  hoursEl.textContent = diffHours
+  // 2) Horas totales (enteras)
+  const totalHours = Math.floor(diffMs / MS_PER_HOUR)
+
+  // 3) Días totales (enteros)
+  const totalDays = Math.floor(diffMs / MS_PER_DAY)
+
+  // 4) Semanas completas y días residuales
+  const weeks = Math.floor(totalDays / 7)
+  const daysRemainingAfterWeeks = totalDays % 7
+
+  // 5) Meses calendario exactos:
+
+  function monthsUntil(endDate, startDate) {
+    const startY = startDate.getFullYear()
+    const startM = startDate.getMonth()
+    const startD = startDate.getDate()
+    const endY = endDate.getFullYear()
+    const endM = endDate.getMonth()
+    const endD = endDate.getDate()
+
+    let months = (endY - startY) * 12 + (endM - startM)
+    if (startD > endD) months -= 1
+    return months
+  }
+
+  const months = monthsUntil(end, now)
+
+
+  const daysAfterMonths = (() => {
+
+    const startClone = new Date(now.getTime())
+    startClone.setMonth(startClone.getMonth() + months)
+
+    let days = Math.floor((end - startClone) / MS_PER_DAY)
+    if (days < 0) days = 0
+    return days
+  })()
+
+  const hours = Math.floor((diffMs % MS_PER_DAY) / MS_PER_HOUR)
+
+  monthsEl.textContent = months
+  weeksEl.textContent = weeks
+  daysEl.textContent = totalDays
+  hoursEl.textContent = totalHours
+
 }
+
 // Fetch to Giphy
 async function loadGif() {
   const apiKey = import.meta.env.VITE_GIPHY_API_KEY
