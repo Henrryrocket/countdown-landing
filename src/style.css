@@ -28,7 +28,7 @@ body {
 .main-section h1 {
   font-family: 'Nunito', sans-serif;
   font-size: 2rem;
-  color: var(--accent);
+  color: var(--text);
 }
 gif-container {
   margin-top: 1rem;
@@ -82,4 +82,10 @@ gif-container {
   .time-box span {
     font-size: 2rem;
   }
+}
+#year-count{
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #000000
 }
