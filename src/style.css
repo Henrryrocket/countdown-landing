@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Quicksand:wght@500&display=swap');
+
+:root {
+  --bg: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  --accent: #fff;
+  --secondary: linear-gradient(to bottom, #051937, #0b1537, #121035, #190933, #20002f);
+  --text: #2b2d42;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+.main-section h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem;
+  color: var(--accent);
+}
+gif-container {
+  margin-top: 1rem;
+}
+
+.gif-container img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.secondary-section {
+  background: var(--secondary);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.time-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.time-box div {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  border-radius: 0.8rem;
+  min-width: 70px;
+  transition: transform 0.2s;
+}
+
+.time-box div:hover {
+  transform: scale(1.05);
+}
+
+.time-box span {
+  font-size: 1.8rem;
+  display: block;
+  font-family: 'Nunito', sans-serif;
+}
+
+@media (min-width: 600px) {
+  .main-section h1 {
+    font-size: 2.5rem;
+  }
+  .time-box span {
+    font-size: 2rem;
+  }
+}
